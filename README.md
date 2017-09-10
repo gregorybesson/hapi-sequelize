@@ -20,6 +20,8 @@ encountering an issue related to any specific version please open an issue. The 
 Simply pass in your sequelize instance and a few basic options and voila. Options accepts a single object
  or an array for multiple dbs.
 
+> A new option is available since sequelize version 4.x: You now may use the option "alter" if you want to alter your database without dropping your tables (and loosing your data). In production, you should still use the migrations way (http://docs.sequelizejs.com/manual/tutorial/migrations.html).
+
 ```javascript
 server.register([
   {
@@ -30,6 +32,7 @@ server.register([
           models: ['./server/models/**/*.js'],  // paths/globs to model files
           sequelize: new Sequelize(config, opts), // sequelize instance
           sync: true, // sync models - default false
+          alter: true, // only available since version 4.x of sequelize. This option has a precedence over forceSync
           forceSync: false, // force sync (drops tables) - default false
           onConnect: function (database) { // Optional
             // migrations, seeders, etc.
